@@ -1,6 +1,20 @@
 <h2>176. Second Highest Salary</h2>
 <h3> nvl(salary, null) -- 결과 공백이었음</br>
-max(salary) -- null 값이 등장 왜 그런걸까...?</h3>
+<pre>
++---------------------+
+| SecondHighestSalary |
++---------------------+
+|                     |
++---------------------+
+</pre>
+max(salary) -- null 값이 등장 왜 그런걸까...?
+<pre>
++---------------------+
+| SecondHighestSalary |
++---------------------+
+| null                |
++---------------------+
+</pre></h3>
 <h3>Medium</h3><hr><div class="sql-schema-wrapper__3VBi"><a class="sql-schema-link__3cEg">SQL Schema<svg viewBox="0 0 24 24" width="1em" height="1em" class="icon__1Md2"><path fill-rule="evenodd" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></a></div><div><p>Table: <code>Employee</code></p>
 
 <pre>+-------------+------+
