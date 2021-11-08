@@ -25,6 +25,7 @@ SELECT A.NUM
 FROM T1
 ;
 ```
+
 <details>
     <summary>result</summary>
   
@@ -38,3 +39,47 @@ FROM T1
 
 </details>
 
+### 2. [N-th highest salary](https://github.com/jini329/SQL_practice/tree/main/nth-highest-salary)
+- **RANK()** : 중복 순위 부여, 다음 순위 PASS (일반적인 순위)
+- **DENSE_RANK()** : 중복 순위 부여, 다음 순위 부여
+- **ROW_NUMBER()** : 중복 관계 없이 순위 부여
+- **ROWNUM** : 행 번호
+
+```sql
+SELECT NUM
+    , RANK() OVER(ORDER BY NUM) AS RANK
+    , DENSE_RANK() OVER(ORDER BY NUM) AS DENSE_RANK
+    , ROW_NUMBER() OVER(ORDER BY NUM) AS ROW_NUMBER
+    , ROWNUM AS IDX
+FROM T2;
+```
+
+<details>
+    <summary>result</summary>
+    
+| NUM | RANK | DENSE_RANK | ROW_NUMBER | IDX |
+|-----|------|------------|------------|-----|
+|  1  |  1   |     1      |     1      |  1  |
+|  1  |  1   |     1      |     2      |  2  |
+|  1  |  1   |     1      |     3      |  3  |
+|  2  |  4   |     2      |     4      |  4  |
+    
+</details>
+
+- **SELECT  col1 INTO var1** : var1 = col1 대입
+```sql
+CREATE FUNCTION getNthHighestSalary(N IN NUMBER) RETURN NUMBER IS
+result NUMBER; --변수 선언
+BEGIN
+    
+    SELECT MAX(A.SALARY) INTO RESULT -- MAX(A.SALARY) 값을 RESULT 변수에 대입
+    FROM (
+        SELECT DENSE_RANK() OVER (ORDER BY SALARY DESC) AS RNK, SALARY
+        FROM EMPLOYEE
+    ) A
+    WHERE A.RNK = N
+    ;
+    
+    RETURN result;
+END;
+```
