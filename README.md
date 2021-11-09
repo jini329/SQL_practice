@@ -83,3 +83,16 @@ BEGIN
     RETURN result;
 END;
 ```
+
+### 3. [Department highest salary](https://github.com/jini329/SQL_practice/tree/main/department-highest-salary)
+- **WHERE (col1, col2) IN ( SELECT col1, col2 FROM T1 )** : python의 tuple과 같이 조건 사용 가능
+```sql
+SELECT A.NAME AS EMPLOYEE
+    , A.SALARY AS SALARY
+FROM EMPLOYEE A
+WHERE (A.DEPARTMENTID, A.SALARY) IN (SELECT C.DEPARTMENTID, MAX(C.SALARY) -- tuple 형태로 조건문 추가 가능
+                                        FROM EMPLOYEE C
+                                        GROUP BY C.DEPARTMENTID
+                                     )
+;
+```
